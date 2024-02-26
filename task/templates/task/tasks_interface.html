@@ -1,0 +1,47 @@
+<div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row m-2 justify-content-center">
+                <a class="btn btn-primary w-50" href="{% url 'task:task_add' %}">Добавить новую задачу</a>
+            </div>
+
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for object in object_list %}
+            <div class="col">
+              <div class="card shadow-sm bg-info">
+                <div class="card-body">
+                  <h5 class="card-title">{{ object.title }}
+                    {% if object.get_status == 'OP' %}
+                        <span class="badge bg-warning text-wrap">В работе</span>
+                    {% elif object.get_status == 'CL' %}
+                        <span class="badge bg-success text-wrap">Исполнена</span>
+                    {% elif object.get_status == 'OV' %}
+                        <span class="badge bg-secondary text-wrap">Просрочена</span>
+                    {% elif object.get_status == 'EX' %}
+                        <span class="badge bg-warning text-wrap">В работе</span>
+                        <span class="badge bg-danger text-wrap">Срочно</span>
+                    {% endif %}
+                  </h5>
+                  <p class="card-text">
+                    {{ object.description | linebreaks | truncatechars:100  }}
+                    <a href="{% url 'task:task_detail' object.pk %}" class="btn btn-primary">Подробнее</a></p>
+                  <p class="text-end text-body-tertiary">Дедлайн: {{ object.deadline }}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group w-100">
+                        <a class="btn btn-danger" href="{% url 'task:task_delete' object.pk %}">Удалить</a>
+                        <a class="btn btn-primary" href="{% url 'task:task_update' object.pk %}">Редактировать</a>
+                        {% if object.get_status != 'CL' %}
+                        <a class="btn btn-warning" href="{% url 'task:task_change' object.pk 'CL' %}">Закрыть</a>
+                        {% else %}
+                        <a class="btn btn-success" href="{% url 'task:task_change' object.pk 'OP' %}">Вернуть в работу</a>
+                        {% endif %}
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+           </div>
+        </div>
+    </div>

@@ -1,0 +1,40 @@
+{% extends 'users/base.html' %}
+{% block title %}
+    {{ object.title }}
+{% endblock %}
+{% block main %}
+    <div class="row mt-2 justify-content-center">
+        <div class="col-6">
+            <div class="card text-center bg-info">
+              <div class="card-body">
+                  <h5 class="card-title">{{ object.title }}
+                    {% if object.get_status == 'OP' %}
+                        <span class="badge bg-warning text-wrap">В работе</span>
+                    {% elif object.get_status == 'CL' %}
+                        <span class="badge bg-success text-wrap">Исполнена</span>
+                    {% elif object.get_status == 'OV' %}
+                        <span class="badge bg-secondary text-wrap">Просрочена</span>
+                    {% elif object.get_status == 'EX' %}
+                        <span class="badge bg-warning text-wrap">В работе</span>
+                        <span class="badge bg-danger text-wrap">Срочно</span>
+                    {% endif %}
+                  </h5>
+                  <p class="card-text">{{ object.description | linebreaks }}</p>
+                  <p class="text-end card-text">Крайний срок - {{ object.deadline }}</p>
+                  <br>
+                  <div class="btn-group w-100">
+                        <a class="btn btn-danger" href="{% url 'task:task_delete' object.pk %}">Удалить</a>
+                        <a class="btn btn-primary" href="{% url 'task:task_update' object.pk %}">Редактировать</a>
+                        {% if object.get_status != 'CL' %}
+                        <a class="btn btn-warning" href="{% url 'task:task_change' object.pk 'CL' %}">Закрыть</a>
+                        {% else %}
+                        <a class="btn btn-success" href="{% url 'task:task_change' object.pk 'OP' %}">Вернуть в работу</a>
+                        {% endif %}
+
+
+                    </div>
+              </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

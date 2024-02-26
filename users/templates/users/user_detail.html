@@ -1,0 +1,25 @@
+{% extends 'users/base.html' %}
+{% block title %}
+    Профиль
+{% endblock %}
+{% block main %}
+    <div class="row mt-2 justify-content-center">
+        <div class="col-6">
+            <div class="card bg-info">
+              <div class="card-body">
+                  <h5 class="card-title">{{ object.first_name }} {{ object.last_name }}</h5>
+                  <p class="card-text">email: {{ object.email }}
+                      {% if object.email_is_confirmed %}
+                        <span class="badge text-success">ОК</span><br>
+                      {% else %}
+                        <a href="{% url 'users:confirm' %}" class="btn btn-sm btn-danger">Подтвердить</a>
+                      {% endif %}<br>
+                  <div class="btn-group">
+                      <a href="{% url 'users:update_profile' %}" class="btn btn-warning">Редактировать</a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

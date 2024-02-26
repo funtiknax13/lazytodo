@@ -1,0 +1,32 @@
+{% extends 'users/base.html' %}
+{% block title %}
+    Планировщик задач
+{% endblock %}
+{% block main %}
+    <h1>ToDo - распланируй свою жизнь!</h1>
+    <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+              <table class="table table-primary table-striped-columns">
+                <thead>
+                    <tr>
+                        <th>Количество созданных задач</th>
+                        <th>Количество активных задач</th>
+                        <th>Количество уникальных пользователей</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ task_count }}</td>
+                        <td>{{ active_task_count }}</td>
+                        <td>{{ user_count }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+          </div>
+        </div>
+    </div>
+
+
+{% endblock %}
