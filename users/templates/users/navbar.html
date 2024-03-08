@@ -1,64 +1,58 @@
-<nav class="navbar navbar-expand-lg bg-dark text-white">
-  <div class="container-fluid">
-    <a class="navbar-brand btn btn-primary text-white" href="/">ToDo</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Переключатель навигации">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse " id="navbarNav">
-      <ul class="navbar-nav">
+ <header class="p-3 text-bg-dark">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="navbar-brand btn btn-danger text-white">LazyToDo</a>
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         {% if user.is_authenticated %}
-<!--        <li class="nav-item">-->
-<!--          <a class="nav-link text-white text-end" aria-current="page" href="#">Задачи</a>-->
-<!--        </li>-->
 
-            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-              <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Задачи
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                    <li><a class="dropdown-item text-warning" href="{% url 'task:open_task_list' %}">Все открытые задачи</a></li>
-                    <li><a class="dropdown-item text-danger" href="{% url 'task:express_task_list' %}">Задачи на сегодня</a></li>
-                    <li><a class="dropdown-item text-secondary" href="{% url 'task:overdue_task_list' %}">Просроченные</a></li>
-                    <li><a class="dropdown-item text-success" href="{% url 'task:close_task_list' %}">Завершенные</a></li>
-                    <li><a class="dropdown-item text-primary" href="{% url 'task:task_list' %}">Все задачи</a></li>
-                  </ul>
-                </li>
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Задачи
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li><a class="dropdown-item text-white" href="{% url 'task:open_task_list' %}">Все открытые задачи</a></li>
+                <li><a class="dropdown-item text-danger" href="{% url 'task:express_task_list' %}">Задачи на сегодня</a></li>
+                <li><a class="dropdown-item text-danger" href="{% url 'task:overdue_task_list' %}">Просроченные</a></li>
+                <li><a class="dropdown-item text-white" href="{% url 'task:close_task_list' %}">Завершенные</a></li>
+                <li><a class="dropdown-item text-white" href="{% url 'task:task_list' %}">Все задачи</a></li>
               </ul>
-            </div>
+          </li>
+
+          <li class="nav-item"><a class="nav-link text-white" href="{% url 'task:task_add' %}">Добавить задачу</a></li>
         {% endif %}
-      </ul>
-    </div>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav2">
-      <ul class="navbar-nav">
-        {% if user.is_authenticated %}
-          <li class="nav-item justify-content-end">
-            <a class="nav-link text-white text-end" href="{% url 'users:profile' %}">Профиль
+        </ul>
+
+        <div class="text-end">
+          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+
+            <a class="nav-link text-white" href="{% url 'users:profile' %}">Профиль
             {% if not user.email_is_confirmed %}
             <span class="badge text-danger">не подтвержден</span>
             {% endif %}
             </a>
 
-          </li>
-          <li class="nav-item">
-            <form id="logout-form" action="{% url 'users:logout' %}" method="POST">
-              {% csrf_token %}
-              <button class="nav-link text-danger text-end" type="submit">Выйти</button>
-            </form>
-          </li>
-        {% else %}
-          <li class="nav-item">
-            <a class="nav-link text-white text-end" href="{% url 'users:login' %}">Войти</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white text-end" href="{% url 'users:register' %}">Регистрация</a>
-          </li>
-        {% endif %}
+            </li>
+            <li class="nav-item">
+              <form id="logout-form" action="{% url 'users:logout' %}" method="POST">
+                {% csrf_token %}
+                <button class="btn btn-outline-danger me-2" type="submit">Выйти</button>
+              </form>
+            </li>
 
+          {% else %}
 
-      </ul>
+            <li class="nav-item">
+              <a class="btn btn-outline-light me-2" href="{% url 'users:login' %}">Войти</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-outline-light me-2" href="{% url 'users:register' %}">Регистрация</a>
+            </li>
+          {% endif %}
+          </ul>
+        </div>
+      </div>
     </div>
+  </header>
 
-  </div>
-</nav>

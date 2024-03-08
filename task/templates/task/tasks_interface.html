@@ -1,9 +1,5 @@
 <div class="album py-5 bg-light">
         <div class="container">
-            <div class="row m-2 justify-content-center">
-                <a class="btn btn-primary w-50" href="{% url 'task:task_add' %}">Добавить новую задачу</a>
-            </div>
-
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {% for object in object_list %}
             <div class="col">
